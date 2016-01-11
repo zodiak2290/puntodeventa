@@ -1,0 +1,394 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.9
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 20-03-2014 a las 01:58:23
+-- Versión del servidor: 5.6.14
+-- Versión de PHP: 5.5.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Base de datos: `tienda`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `admin`
+--
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  `idadmon` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `curp` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `contraseña` varchar(50) NOT NULL,
+  `fechainicio` date NOT NULL,
+  PRIMARY KEY (`idadmon`),
+  UNIQUE KEY `curp` (`curp`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `admin`
+--
+
+INSERT INTO `admin` (`idadmon`, `curp`, `contraseña`, `fechainicio`) VALUES
+('123', 'QWE23', '123', '2014-02-19'),
+('ADMIN', 'ADMIN', '123', '2014-01-31'),
+('BETO', 'RONDA', '123', '2014-02-19'),
+('PEDRO', 'lLOP', '123', '2014-02-19'),
+('RODOSLO', 'RODOSLO', '123', '2014-02-20'),
+('admin', 'MAVAS', '123', '2014-02-19'),
+('paris', 'LOAJK', '123', '2014-02-19'),
+('zodiak22', 'MAVA900222HOCRLL06', '15f64591ab', '2014-03-16');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `almacen`
+--
+
+CREATE TABLE IF NOT EXISTS `almacen` (
+  `codigobarras` varchar(30) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `almacen`
+--
+
+INSERT INTO `almacen` (`codigobarras`, `cantidad`) VALUES
+('25293001251', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articulo`
+--
+
+CREATE TABLE IF NOT EXISTS `articulo` (
+  `codigobarras` varchar(40) NOT NULL,
+  `idmarca` int(11) NOT NULL,
+  `nombreart` varchar(30) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  `medida` varchar(20) NOT NULL,
+  `iddepartamento` int(11) NOT NULL,
+  `strImagen` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`codigobarras`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `articulo`
+--
+
+INSERT INTO `articulo` (`codigobarras`, `idmarca`, `nombreart`, `descripcion`, `medida`, `iddepartamento`, `strImagen`) VALUES
+('25293001251', 1, 'SIK', 'leche original', '1l', 2, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cajero`
+--
+
+CREATE TABLE IF NOT EXISTS `cajero` (
+  `idcajero` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `curp` varchar(40) NOT NULL,
+  `pass` varchar(40) NOT NULL,
+  `fechaini` date NOT NULL,
+  PRIMARY KEY (`idcajero`),
+  UNIQUE KEY `curp` (`curp`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cajero`
+--
+
+INSERT INTO `cajero` (`idcajero`, `curp`, `pass`, `fechaini`) VALUES
+('JIOK', 'POLO', '123', '2014-02-19'),
+('MAVA', 'RODOSLOMATUS2', '123', '2014-03-16'),
+('POL98', 'RODOSLOMATUS', '123', '2014-03-16'),
+('ROBI', 'ROBER', '123', '2014-03-16'),
+('SOP', 'POLONO', '123', '2014-02-19'),
+('adminos', 'ASDEIO', '123', '2014-03-16'),
+('albon', 'ALBON', '123', '2014-02-11'),
+('beto', 'MAVA', '123', '2014-02-19');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
+CREATE TABLE IF NOT EXISTS `cliente` (
+  `curp` varchar(40) NOT NULL,
+  `idcliente` varchar(50) NOT NULL,
+  `passcliente` varchar(50) NOT NULL,
+  `fecharegistro` date NOT NULL,
+  PRIMARY KEY (`idcliente`),
+  KEY `curp` (`curp`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`curp`, `idcliente`, `passcliente`, `fecharegistro`) VALUES
+('RODO', 'adsl', '123', '2014-03-16'),
+('POL98', 'ghjn', '123', '2014-03-16'),
+('HUAOAK', 'ramo', '123', '2014-03-16'),
+('FOJO', 'redi', '123', '2014-03-16');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `compra`
+--
+
+CREATE TABLE IF NOT EXISTS `compra` (
+  `idcompra` int(11) NOT NULL AUTO_INCREMENT,
+  `codigobarras` varchar(30) NOT NULL,
+  `cantidadcomp` int(11) NOT NULL,
+  `fechacom` date NOT NULL,
+  `preciocom` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`idcompra`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `compra`
+--
+
+INSERT INTO `compra` (`idcompra`, `codigobarras`, `cantidadcomp`, `fechacom`, `preciocom`) VALUES
+(1, '25293001251', 10, '2014-01-31', '20.20');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `departamento`
+--
+
+CREATE TABLE IF NOT EXISTS `departamento` (
+  `iddepartamento` int(11) NOT NULL AUTO_INCREMENT,
+  `nombredep` varchar(30) NOT NULL,
+  PRIMARY KEY (`iddepartamento`),
+  UNIQUE KEY `nombredep` (`nombredep`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `departamento`
+--
+
+INSERT INTO `departamento` (`iddepartamento`, `nombredep`) VALUES
+(2, 'LACTEOS'),
+(1, 'SALCHICHAS');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE IF NOT EXISTS `estado` (
+  `idestado` int(11) NOT NULL AUTO_INCREMENT,
+  `nombreest` varchar(30) NOT NULL,
+  PRIMARY KEY (`idestado`),
+  UNIQUE KEY `nombreest` (`nombreest`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`idestado`, `nombreest`) VALUES
+(1, 'Aguascalientes'),
+(2, 'Baja California '),
+(3, 'Baja California Sur'),
+(4, 'Campeche'),
+(7, 'Chiapas'),
+(8, 'Chihuahua'),
+(5, 'Coahuila'),
+(6, 'Colima'),
+(32, 'DF'),
+(10, 'Durango'),
+(11, 'Guanajuato'),
+(12, 'Guerrero'),
+(13, 'Hidalgo'),
+(14, 'Jalisco'),
+(15, 'México'),
+(16, 'Michoacán'),
+(17, 'Morelos'),
+(18, 'Nayarit'),
+(19, 'Nuevo León'),
+(20, 'Oaxaca'),
+(21, 'Puebla'),
+(22, 'Querétaro'),
+(23, 'Quintana Roo'),
+(24, 'San Luis Potosí'),
+(9, 'Sinaloa'),
+(25, 'Sonora'),
+(26, 'Tabasco'),
+(27, 'Tamaulipas'),
+(28, 'Tlaxcala'),
+(29, 'Veracruz'),
+(30, 'Yucatán'),
+(31, 'Zacatecas');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `inventario`
+--
+
+CREATE TABLE IF NOT EXISTS `inventario` (
+  `codigobarras` varchar(40) NOT NULL,
+  `fechaCambi` date NOT NULL,
+  `precioVenta` decimal(10,2) NOT NULL,
+  `idinventario` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idinventario`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `inventario`
+--
+
+INSERT INTO `inventario` (`codigobarras`, `fechaCambi`, `precioVenta`, `idinventario`) VALUES
+('25293001251', '2014-01-31', '23.00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `marca`
+--
+
+CREATE TABLE IF NOT EXISTS `marca` (
+  `idmarca` int(11) NOT NULL AUTO_INCREMENT,
+  `nombremar` varchar(30) NOT NULL,
+  PRIMARY KEY (`idmarca`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `marca`
+--
+
+INSERT INTO `marca` (`idmarca`, `nombremar`) VALUES
+(1, 'NESTLE'),
+(2, 'JMA');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `persona`
+--
+
+CREATE TABLE IF NOT EXISTS `persona` (
+  `curp` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `nombre` varchar(40) NOT NULL,
+  `apPat` varchar(40) DEFAULT NULL,
+  `apMat` varchar(40) DEFAULT NULL,
+  `calle` varchar(40) NOT NULL,
+  `colonia` varchar(30) NOT NULL,
+  `numExt` varchar(10) NOT NULL,
+  `municipio` varchar(40) NOT NULL,
+  `idestado` int(11) NOT NULL,
+  `cp` varchar(6) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `numTel` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `nacimiento` date DEFAULT NULL,
+  `foto` varchar(500) DEFAULT NULL,
+  `sexo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`curp`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`curp`, `nombre`, `apPat`, `apMat`, `calle`, `colonia`, `numExt`, `municipio`, `idestado`, `cp`, `email`, `numTel`, `status`, `nacimiento`, `foto`, `sexo`) VALUES
+('ADMIN', '', NULL, NULL, '', '', '', '', 1, '', '', '', 5, '0000-00-00', NULL, 0),
+('ALBON', '', NULL, NULL, '', '', '', '', 19, '', '', '', 0, '0000-00-00', NULL, 0),
+('ASDEIO', 'HOLIN', 'KJ', '', 'KJ', 'K', 'KJ', 'JK', 14, 'kj', '', '', 1, NULL, NULL, 0),
+('FOJO', 'ROBER', 'ASD', '', '', '', '', '', 1, '', '', '', 1, '2014-03-16', 'C:UserspcPicturesprezi2.jpg', 0),
+('HUAOAK', 'PEDRO', 'HERN', 'DJO', 'ALDAM', 'CENTRO', '12', 'CENTRO', 1, '34', 'anal', '039', 1, '2014-03-05', 'C:UserspcPicturesprezi4.jpg', 0),
+('LLOP', 'JUAN', 'ALO', 'AK', 'JO', 'ALMENDARIZ', '12', 'KAL', 1, '89', 'ALAJL', 'AJI', 1, '0000-00-00', 'C:UserspcPicturesprezi2.jpg', 0),
+('LOAJK', 'JUAN ', 'PERE', '', 'ALDAM', 'CENTRO', '12', 'CENTTRO', 7, '1290', 'alakamLOAJ', 'a09', 0, '0000-00-00', 'C:UserspcPicturesprezi2.jpg', 0),
+('MAVA', 'ALBERTO', 'MARTINEZ', 'VELASCO', 'ALDAMA', 'CENTRO', '23', 'CENTRO', 1, '71244', 'albon_marvel@hotmailcom', '1942111', 1, '0000-00-00', NULL, 0),
+('MAVA900222HOCRLL06', 'ALBERTO BONIFACIO', 'MARTINEZ', 'VELASCO', 'MORELOS', 'ANIMAS TRUJANO', '212', 'ANIMAS TRUJANO', 20, '71244', 'albon_marvel@hotmail.com', '9511942111', 1, '1990-02-22', 'H:Mi Discoalbertoalbertofotos delfinesImagenesyo.jpg', 0),
+('MAVAS', 'JUAN', 'ALO', 'AK', 'JO', 'ALMENDARIZ', '12', 'KAL', 1, '89', 'ALAJL', 'AJI', 0, '0000-00-00', NULL, 0),
+('POL98', 'RODO', 'LAKS', 'LK', 'LK', 'LK', 'L', 'L', 1, 'k', 'lkl', '', 0, '2014-03-16', '', 0),
+('POLO', 'ALK', 'LK', 'LK', 'LKLK', 'LKLK', '98', 'LKLK', 31, '09', 'OLK', 'OI', 1, '0000-00-00', NULL, 0),
+('POLONO', 'ALK', 'LK', 'LK', 'LKLK', 'LKLK', '98', 'LKLK', 30, '09', 'OLK', 'OI', 1, '0000-00-00', NULL, 0),
+('QWE23', 'ASD', 'ASD', '', '', '', '', '', 0, '', '', '', 1, '0000-00-00', NULL, 0),
+('ROBER', 'ROBER', 'RODRI', 'HOL', '', '', '', '', 15, '', 'a@hl', '34', 1, '1980-03-04', NULL, 0),
+('RODO', 'PEDRO', 'ZARATE', 'ORTIZ', 'AJ', '', '', '', 1, '', '', '', 1, '2014-03-16', 'C:UserspcPicturesprezi2.jpg', 0),
+('RODOSLO', 'LOPES', 'ASD', '', '', '', '', '', 1, '', '', '', 0, '0000-00-00', 'C:UserspcPicturesprezi2.jpg', 0),
+('RODOSLOMATUS', 'ARMENT', 'LOPEZ', 'SAL', 'A', '', '', '', 20, '', 'kal@rl', '90', 1, '2014-03-16', '', 1),
+('RODOSLOMATUS2', 'ARMENT', 'LOPEZ', 'SAL', 'A', '', '', '', 20, '', 'kal@rl', '90', 1, '2014-03-16', '', 1),
+('RONDA', 'JUAN', 'ALO', 'AK', 'JO', 'ALMENDARIZ', '12', 'KAL', 1, '89', 'ALAJL', 'AJI', 0, '0000-00-00', 'C:UserspcPicturesprezi2.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sucursal`
+--
+
+CREATE TABLE IF NOT EXISTS `sucursal` (
+  `nombresuc` varchar(40) NOT NULL,
+  `calle` varchar(100) NOT NULL,
+  `colonia` varchar(100) NOT NULL,
+  `nume` varchar(30) NOT NULL,
+  `municipio` varchar(100) NOT NULL,
+  `cp` varchar(10) NOT NULL,
+  `idestado` int(11) NOT NULL,
+  `mensaje1` varchar(100) NOT NULL,
+  `mensaje2` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `tel` varchar(30) NOT NULL,
+  `rfc` varchar(30) NOT NULL,
+  `numerotienda` int(11) NOT NULL,
+  PRIMARY KEY (`nombresuc`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sucursal`
+--
+
+INSERT INTO `sucursal` (`nombresuc`, `calle`, `colonia`, `nume`, `municipio`, `cp`, `idestado`, `mensaje1`, `mensaje2`, `email`, `tel`, `rfc`, `numerotienda`) VALUES
+('PRUEBA', 'ALDAMA', 'MK', '4', 'M,', '71244', 1, 'H', 'J', 'alan@jk', '9181', 'kkjj', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ticketventa`
+--
+
+CREATE TABLE IF NOT EXISTS `ticketventa` (
+  `idventa` int(11) NOT NULL AUTO_INCREMENT,
+  `cantidadprod` int(11) NOT NULL,
+  `idinventario` int(11) NOT NULL,
+  `idcompra` int(11) NOT NULL,
+  PRIMARY KEY (`idventa`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `venta`
+--
+
+CREATE TABLE IF NOT EXISTS `venta` (
+  `idventa` varchar(40) NOT NULL,
+  `curp` varchar(40) NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`idventa`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
